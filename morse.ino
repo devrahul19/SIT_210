@@ -4,10 +4,10 @@ const int ledPin = 12;
 int buttonState = LOW;
 int lastButtonState = LOW;
 bool blinking = false;
-const char* name = "Vasudha"; 
+const char* name = "Rahul"; 
 int nameLength = strlen(name);
 
-// Define Morse code for each letter (A-Z)
+// Defining Morse code for each letter (A-Z)
 const char* morseCode[] = {
   ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--",
   "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."
@@ -15,7 +15,7 @@ const char* morseCode[] = {
 
 void setup() {
   pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP); // Use internal pull-up resistor
+  pinMode(buttonPin, INPUT_PULLUP); // Using internal pull-up resistor
 }
 
 void loop() {
@@ -27,7 +27,7 @@ void loop() {
       if (blinking) {
         blinkName();
       } else {
-        digitalWrite(ledPin, LOW); // Turn off LED if blinking is stopped
+        digitalWrite(ledPin, LOW); // Turning off LED if blinking is stopped
       }
     }
     lastButtonState = buttonState;
