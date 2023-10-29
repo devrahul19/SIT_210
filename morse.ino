@@ -1,63 +1,58 @@
-const int buttonPin = 3;
-const int ledPin = 12;
-
-int buttonState = LOW;
-int lastButtonState = LOW;
-bool blinking = false;
-const char* name = "Rahul"; 
-int nameLength = strlen(name);
-
-// Defining Morse code for each letter (A-Z)
-const char* morseCode[] = {
-  ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--",
-  "-.", "---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--.."
-};
+int buttonPin = 2;
+int ledPin = LED_BUILTIN;
+int dotDuration = 250;   // Dot duration in milliseconds
+int dashDuration = 750;  // Dash duration in milliseconds
 
 void setup() {
   pinMode(ledPin, OUTPUT);
-  pinMode(buttonPin, INPUT_PULLUP); // Using internal pull-up resistor
+  pinMode(buttonPin, INPUT_PULLUP);  // Use internal pull-up resistor for the button
+}
+
+void blinkDot() {
+  digitalWrite(ledPin, HIGH);
+  delay(dotDuration);
+  digitalWrite(ledPin, LOW);
+  delay(dotDuration);  // Gap between dots and dashes
+}
+
+void blinkDash() {
+  digitalWrite(ledPin, HIGH);
+  delay(dashDuration);
+  digitalWrite(ledPin, LOW);
+  delay(dotDuration);  // Gap between dots and dashes
 }
 
 void loop() {
-  buttonState = digitalRead(buttonPin);
+  if (digitalRead(buttonPin) == LOW) {
+    // R
+    blinkDot();
+    blinkDash();
+    blinkDot();
+    delay(1000);
 
-  if (buttonState != lastButtonState) {
-    if (buttonState == LOW) {
-      blinking = !blinking; // Toggle blinking state
-      if (blinking) {
-        blinkName();
-      } else {
-        digitalWrite(ledPin, LOW); // Turning off LED if blinking is stopped
-      }
-    }
-    lastButtonState = buttonState;
+    // A
+    blinkDot();
+    blinkDash();
+    delay(1000);
+
+    // H
+    blinkDot();
+    blinkDot();
+    blinkDot();
+    blinkDot();
+    delay(1000);
+
+    // U
+    blinkDot();
+    blinkDot();
+    blinkDash();
+    delay(1000);
+
+    // L
+    blinkDot();
+    blinkDash();
+    blinkDot();
+    blinkDot();
+    delay(1000);
   }
-}
-
-void blinkMorseCharacter(const char* morseCharacter) {
-  for (int i = 0; morseCharacter[i] != '\0'; i++) {
-    if (morseCharacter[i] == '.') {
-      digitalWrite(ledPin, HIGH);
-      delay(200); // Dot duration
-    } else if (morseCharacter[i] == '-') {
-      digitalWrite(ledPin, HIGH);
-      delay(600); // Dash duration
-    }
-    digitalWrite(ledPin, LOW);
-    delay(200); // Gap between dots and dashes
-  }
-}
-
-void blinkName() {
-  for (int i = 0; i < nameLength; i++) {
-    char letter = toupper(name[i]);
-    if (letter >= 'A' && letter <= 'Z') {
-      int index = letter - 'A';
-      if (index >= 0 && index < 26) {
-        const char* morse = morseCode[index];
-        blinkMorseCharacter(morse);
-      }
-      delay(600); // Gap between letters
-}
-}
 }
