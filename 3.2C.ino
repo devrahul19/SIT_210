@@ -78,7 +78,7 @@ void onLightSensorChange(){
   {
     float lightSensor = sensor.getLux();
     bool light;
-    if (lightSensor > 150)
+    if (lightSensor > 500)
     {
       light = true;
       onlightChange();
